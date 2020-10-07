@@ -38,6 +38,23 @@ h1{font-size: 20px;color: var(--MainColor); margin-bottom: 5px;}
 h2{font-size: 14px;color: var(--MainColor)}
 h3{font-size: 10px;font-weight: 300;color: #979EA4;/*font-style: italic;*/}
 
+#descAndBar {
+	border: 1px solid #21252b;
+	border-radius: 5px;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	padding: 1px;
+	height: 15.2px;
+}
+
+#progressBar {
+	width: 100%;
+	height: 100%;
+	background-color: var(--MainColor);
+	border-radius: 3px;
+}
+
 #left, #right {
 	padding: 22px 28px;
 }
