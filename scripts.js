@@ -22,7 +22,7 @@ function switchToRed() {
 	document.querySelector('#right>h2').innerHTML = "Cancel";
 	document.documentElement.style.setProperty('--MainColor', red);
 	document.getElementsByTagName('input')[0].readOnly = true;
-	descAndBar.style.border = '1px solid #979EA4';
+	descAndBar.style.border = '1px solid #616568';
 	descAndBar.innerHTML = '<div id="progressBar"></div>'
 	currentPhase = 'red';
 }
