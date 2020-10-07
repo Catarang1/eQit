@@ -2,6 +2,46 @@ var blue = '#00B5E6';
 var red = '#e6004a';
 var currentPhase = 'blue';
 var descAndBar = document.getElementById('descAndBar');
+var progressBar = document.getElementById('progressBar');
+var intervalId;
+var deltaT;
+var maxT;
+
+function startTimer(){
+	if (currentPhase == 'blue') {
+		var userInput = document.getElementsByTagName('input')[0].value;
+		if (isNaN(userInput) || userInput == 0 || userInput < 0){
+			descAndBar.innerHTML = '<h3>Input must be number that is bigger zero</h3>';
+			return;
+		}
+		deltaT = userInput * 60;
+		maxT = deltaT;
+		console.log(deltaT);
+		switchPhase();
+		progressBar = document.getElementById('progressBar');
+		intervalId = setInterval(updateTimer, 1000);
+	} else {
+		window.clearInterval(intervalId);
+		switchPhase();
+	}
+
+}
+
+function updateTimer(){
+	deltaT--;
+	progressBar.style.width = deltaT / maxT * 100 + "%";
+	if (deltaT < 60) {
+		document.getElementsByTagName('input')[0].value = deltaT;
+	}
+	if(deltaT==0){
+		window.clearInterval(intervalId);
+		shutdown();
+	}
+}
+
+function shutdown(){
+	console.log('PC shutdown');
+}
 
 function switchPhase(){
 	if (currentPhase == "blue") {
@@ -28,8 +68,8 @@ function switchToRed() {
 }
 
 /*
-Red Phase:
-triggering quit CMD at the end of animation
-animate width of #content
-each minute update input value in red phase
+each minute update input value in red phase (modulo, careful with float)
+double click on bar adds 10 minutes (carefull with extending over maxT)
+different ECHO for wrong inputs in blue phase
+refractor blue phase and red phase to armed and setup
 */

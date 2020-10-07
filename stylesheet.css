@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
 
-/*#e6004a*/
-/* #00B5E6 */
 
 :root {
   --MainColor: #00B5E6;
@@ -77,3 +75,5 @@ input {
 	transition-delay: 0s;
 	animation-timing-function: ease;
 }
+
+#progressBar{transition-duration: 1s;animation-timing-function: linear;}
