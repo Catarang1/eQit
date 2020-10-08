@@ -1,6 +1,6 @@
 var blue = '#00B5E6';
 var red = '#e6004a';
-var currentPhase = 'blue';
+var currentPhase = 'setup';
 var descAndBar = document.getElementById('descAndBar');
 var progressBar = document.getElementById('progressBar');
 var intervalId;
@@ -8,34 +8,39 @@ var deltaT;
 var maxT;
 
 function startTimer(){
-	if (currentPhase == 'blue') {
+	if (currentPhase == 'setup') {
+		// save value into variable
 		var userInput = document.getElementsByTagName('input')[0].value;
+		//validate input errorneous input causes return
 		if (isNaN(userInput) || userInput == 0 || userInput < 0){
-			descAndBar.innerHTML = '<h3>Input must be number that is bigger zero</h3>';
+			descAndBar.innerHTML = '<h3>Input must be positive number bigger than zero</h3>';
 			return;
 		}
+		//variable init
 		deltaT = userInput * 60;
 		maxT = deltaT;
-		console.log(deltaT);
+		//change scene && debug progressbar ID && start ticking
 		switchPhase();
 		progressBar = document.getElementById('progressBar');
-		intervalId = setInterval(updateTimer, 1000);
+		intervalId = setInterval(tick, 1000);
 	} else {
+		//cancel countdown
 		window.clearInterval(intervalId);
 		switchPhase();
 	}
-
 }
 
-function updateTimer(){
+function tick(){
 	deltaT--;
-	progressBar.style.width = deltaT / maxT * 100 + "%";
-	if (deltaT < 60) {
-		document.getElementsByTagName('input')[0].value = deltaT;
-	}
-	if(deltaT==0){
+	progressBar.style.width = deltaT / maxT * 100 + '%';
+
+	if(deltaT==0) {
 		window.clearInterval(intervalId);
 		shutdown();
+	} else if (deltaT<60) {
+		document.getElementsByTagName('input')[0].value = deltaT;
+	} else {
+		document.getElementsByTagName('input')[0].value = Math.round(deltaT/60);
 	}
 }
 
@@ -44,32 +49,32 @@ function shutdown(){
 }
 
 function switchPhase(){
-	if (currentPhase == "blue") {
-		switchToRed();
-	} else switchToBlue()
+	if (currentPhase == "setup") {
+		switchToArmed();
+	} else switchToSetup()
 }
 
-function switchToBlue() {
+function switchToSetup() {
 	document.querySelector('#right>h2').innerHTML = "Shutdown";
 	document.documentElement.style.setProperty('--MainColor', blue);
 	document.getElementsByTagName('input')[0].readOnly = false;
 	descAndBar.style.border = '1px solid #21252b';
 	descAndBar.innerHTML = '<h3>Insert value in minutes, will run internal clock</h3>'
-	currentPhase = 'blue';
+	currentPhase = 'setup';
 }
 
-function switchToRed() {
+function switchToArmed() {
 	document.querySelector('#right>h2').innerHTML = "Cancel";
 	document.documentElement.style.setProperty('--MainColor', red);
 	document.getElementsByTagName('input')[0].readOnly = true;
 	descAndBar.style.border = '1px solid #616568';
-	descAndBar.innerHTML = '<div id="progressBar"></div>'
-	currentPhase = 'red';
+	descAndBar.innerHTML = '<div ondblclick="addTen()" id="progressBar"></div>'
+	currentPhase = 'armed';
 }
 
-/*
-each minute update input value in red phase (modulo, careful with float)
-double click on bar adds 10 minutes (carefull with extending over maxT)
-different ECHO for wrong inputs in blue phase
-refractor blue phase and red phase to armed and setup
-*/
+function addTen(){
+	deltaT+=10*60;
+	if(deltaT>maxT) {
+		maxT = deltaT;
+	}
+}

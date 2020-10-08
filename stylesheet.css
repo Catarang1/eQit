@@ -54,7 +54,7 @@ h3{font-size: 10px;font-weight: 300;color: #979EA4;/*font-style: italic;*/}
 
 #middle {background: var(--MainColor);}
 
-#right {border-radius: 0px 6px 6px 0px;cursor: pointer;}
+#right {border-radius: 0px 6px 6px 0px;cursor: pointer; width: 65px;text-align: center;}
 #right:hover {background: var(--MainColor);filter: brightness(70%);}
 #right:hover h2 {text-decoration: underline; color: #21252b}
 
@@ -76,4 +76,8 @@ input {
 	animation-timing-function: ease;
 }
 
-#progressBar{transition-duration: 1s;animation-timing-function: linear;}
+#progressBar{
+	transition-duration: 1s;
+	animation-timing-function: linear;
+	cursor: pointer;
+}
