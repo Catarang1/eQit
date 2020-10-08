@@ -12,6 +12,17 @@
 	font-weight: 500;
 }
 
+body {
+	overflow-y: hidden;
+}
+
+#right, #middle, h1, #right, #content, #descAndBar, #progressBar{
+	transition-property: background, color, width, border;
+	transition-duration: 0.5s;
+	transition-delay: 0s;
+	animation-timing-function: ease;
+}
+
 #wrapper {
 	padding: 10px;
 	width: fit-content;
@@ -34,13 +45,14 @@
 
 h1{font-size: 20px;color: var(--MainColor); margin-bottom: 5px;}
 h2{font-size: 14px;color: var(--MainColor)}
-h3{font-size: 10px;font-weight: 300;color: #979EA4;/*font-style: italic;*/}
+h3{font-size: 10px;font-weight: 300;color: #979EA4;/* font-style: italic; */}
 
 #descAndBar {
 	border: 1px solid #21252b;
 	border-radius: 5px;
 	padding: 1.4px;
 	height: calc(15.2px - 2 * 1.4px);
+	cursor: pointer;
 }
 
 #progressBar {
@@ -48,14 +60,16 @@ h3{font-size: 10px;font-weight: 300;color: #979EA4;/*font-style: italic;*/}
 	height: 100%;
 	background-color: var(--MainColor);
 	border-radius: 3px;
+	transition-duration: 1s;
+	animation-timing-function: linear;
 }
 
-#left, #right {padding: 22px 28px;}
+#left, #right {padding: 18px 28px;}
 
 #middle {background: var(--MainColor);}
 
 #right {border-radius: 0px 6px 6px 0px;cursor: pointer; width: 65px;text-align: center;}
-#right:hover {background: var(--MainColor);filter: brightness(70%);}
+#right:hover {background: var(--MainColor);/*filter: brightness(70%)*/;}
 #right:hover h2 {text-decoration: underline; color: #21252b}
 
 input {
@@ -68,16 +82,4 @@ input {
 	text-align: center;
 	color: #21252b;
 	font-weight: 700;
-}
-#right, #middle, h1, #right, #content, #descAndBar, #progressBar{
-	transition-property: background, color, width, border;
-	transition-duration: 0.5s;
-	transition-delay: 0s;
-	animation-timing-function: ease;
-}
-
-#progressBar{
-	transition-duration: 1s;
-	animation-timing-function: linear;
-	cursor: pointer;
 }

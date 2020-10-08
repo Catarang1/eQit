@@ -13,7 +13,7 @@ function startTimer(){
 		var userInput = document.getElementsByTagName('input')[0].value;
 		//validate input errorneous input causes return
 		if (isNaN(userInput) || userInput == 0 || userInput < 0){
-			descAndBar.innerHTML = '<h3>Input must be positive number bigger than zero</h3>';
+			descAndBar.innerHTML = '<h3>Input must be positive number above zero</h3>';
 			return;
 		}
 		//variable init
@@ -68,7 +68,7 @@ function switchToArmed() {
 	document.documentElement.style.setProperty('--MainColor', red);
 	document.getElementsByTagName('input')[0].readOnly = true;
 	descAndBar.style.border = '1px solid #616568';
-	descAndBar.innerHTML = '<div ondblclick="addTen()" id="progressBar"></div>'
+	descAndBar.innerHTML = '<div id="progressBar"></div>'
 	currentPhase = 'armed';
 }
 
