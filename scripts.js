@@ -83,17 +83,8 @@ function addTen(){
 }
 
 function inputScratch(){
-	var currentInput = document.getElementsByTagName('input')[0].value;
-	console.log(currentInput);
-	console.log('to string: '+currentInput.toString());
-	console.log('compare')
-	console.log(currentInput.toString().length>2)
-
-	if (currentInput.toString().length>2) {
-		console.log('inside if block // was true')
-		var x = currentInput;
-		console.log(x);
-		console.log(x.toString().substr(1))
-		document.getElementsByTagName('input')[0].value = x.toString().substr(1,2);
+	var inputField = document.getElementsByTagName('input')[0];
+	if (inputField.value.length>2) {
+		inputField.value = inputField.value.substr(1,2);
 	}
 }
