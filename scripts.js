@@ -7,14 +7,15 @@ var intervalId;
 var deltaT;
 var maxT;
 
+
 function startTimer(){
 	var inputField = document.getElementsByTagName('input')[0];
 	if (currentPhase == 'setup') {
-		if (inputField.value.match(/\dh/) && inputField.value.substr(0,1)!='0') {
-			deltaT = inputField.value.substr(0,1) * 60 * 60;
-		} else if (inputField.value=='0h'){
+		if (inputField.value=='0h'){
 			descAndBar.innerHTML = "<h3>'0h' is nonsensical input</h3>";
 			return;
+		} else if (inputField.value.match(/\dh/)) {
+			deltaT = inputField.value.substr(0,1) * 60 * 60;
 		} else if (isNaN(inputField.value) || inputField.value == 0 || inputField.value < 0){
 			descAndBar.innerHTML = '<h3>Input must be positive number above zero</h3>';
 			return;
@@ -55,6 +56,8 @@ function tick(){
 
 function shutdown(){
 	console.log('PC shutdown');
+	var sd = require('shutdown-computer');
+	sd.shutDownComputer();
 }
 
 function switchPhase(){
@@ -84,6 +87,7 @@ function switchToArmed() {
 function addTen(){
 	deltaT+=10*60;
 	maxT = deltaT;
+	progressBar.style.width = '100%';
 }
 
 function inputScratch(){
@@ -91,4 +95,24 @@ function inputScratch(){
 	if (inputField.value.length>2) {
 		inputField.value = inputField.value.substr(1,2);
 	}
+}
+
+function initFXs(){
+	var inputField = document.getElementsByTagName('input')[0];
+
+	inputField.focus();
+
+	//handle ENTER on press over inputField
+	inputField.addEventListener("keydown", function (event) {
+		if (event.defaultPrevented) return;
+		var handled = false;
+		if (event.key !== undefined) {
+			if (event.key == "Enter") startTimer();
+		} else if (event.keyCode !== undefined) {
+			if (event.keyCode == 13) startTimer();
+		}
+		if (handled) {
+		  event.preventDefault();
+		}
+	  }, true);
 }

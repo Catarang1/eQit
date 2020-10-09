@@ -10,7 +10,7 @@
 
 	</script>
 </head>
-<body>
+<body onload="initFXs()">
 	<div id="wrapper">
 		<div id="content">
 			<div id="left">
@@ -21,7 +21,7 @@
 			</div>
 			<div id="middle">
 				<div id="inputWrap">
-					<input oninput="inputScratch()" value="10" type="text">
+					<input oninput="inputScratch()" value="10" type="text" autofocus>
 				</div>
 			</div>
 			<div onclick="startTimer()" id="right">

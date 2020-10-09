@@ -1,22 +1,25 @@
 const { app, BrowserWindow } = require('electron')
+const electron = require('electron')
+const remote = electron.remote
 
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
+    y: 0,
     width: 478,
     height: 110,
     frame: false,
     transparent: true,
-    /* resizable: false, */
-    webPreferences: {
+    resizable: false,
+    /* webPreferences: {
       nodeIntegration: true
-    }
+    } */
   })
 
   // and load the index.html of the app.
   win.loadFile('index.html')
   // Open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
