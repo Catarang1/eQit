@@ -8,16 +8,16 @@ var deltaT;
 var maxT;
 
 function startTimer(){
+	var inputField = document.getElementsByTagName('input')[0];
 	if (currentPhase == 'setup') {
 		// save value into variable
-		var userInput = document.getElementsByTagName('input')[0].value;
 		//validate input errorneous input causes return
-		if (isNaN(userInput) || userInput == 0 || userInput < 0){
+		if (isNaN(inputField.value) || inputField.value == 0 || inputField.value < 0){
 			descAndBar.innerHTML = '<h3>Input must be positive number above zero</h3>';
 			return;
 		}
 		//variable init
-		deltaT = userInput * 60;
+		deltaT = inputField.value * 60;
 		maxT = deltaT;
 		//change scene && debug progressbar ID && start ticking
 		switchPhase();
@@ -27,20 +27,23 @@ function startTimer(){
 		//cancel countdown
 		window.clearInterval(intervalId);
 		switchPhase();
+		inputField.value = Math.floor(maxT/60);
 	}
 }
 
 function tick(){
 	deltaT--;
 	progressBar.style.width = deltaT / maxT * 100 + '%';
-
+	var v = document.getElementsByTagName('input')[0].value;
 	if(deltaT==0) {
 		window.clearInterval(intervalId);
 		shutdown();
 	} else if (deltaT<60) {
-		document.getElementsByTagName('input')[0].value = deltaT;
+		v = deltaT;
+	} else if (deltaT<3600) {
+		v = Math.floor(deltaT/60);
 	} else {
-		document.getElementsByTagName('input')[0].value = Math.round(deltaT/60);
+		v = Math.floor(deltaT/60/60) + 'h';
 	}
 }
 
@@ -76,5 +79,21 @@ function addTen(){
 	deltaT+=10*60;
 	if(deltaT>maxT) {
 		maxT = deltaT;
+	}
+}
+
+function inputScratch(){
+	var currentInput = document.getElementsByTagName('input')[0].value;
+	console.log(currentInput);
+	console.log('to string: '+currentInput.toString());
+	console.log('compare')
+	console.log(currentInput.toString().length>2)
+
+	if (currentInput.toString().length>2) {
+		console.log('inside if block // was true')
+		var x = currentInput;
+		console.log(x);
+		console.log(x.toString().substr(1))
+		document.getElementsByTagName('input')[0].value = x.toString().substr(1,2);
 	}
 }
