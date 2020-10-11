@@ -16,7 +16,7 @@ function startTimer(){
 			return;
 		} else if (inputField.value.match(/\dh/)) {
 			deltaT = inputField.value.substr(0,1) * 60 * 60;
-		} else if (isNaN(inputField.value) || inputField.value == 0 || inputField.value < 0){
+		} else if (isNaN(inputField.value) || inputField.value <= 0){
 			descAndBar.innerHTML = '<h3>Input must be positive number above zero</h3>';
 			return;
 		} else {

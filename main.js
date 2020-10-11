@@ -5,7 +5,6 @@ const remote = electron.remote
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
-    y: 0,
     width: 478,
     height: 110,
     frame: false,
