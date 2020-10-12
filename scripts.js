@@ -2,6 +2,7 @@ var blue = '#00B5E6';
 var red = '#e6004a';
 var currentPhase = 'setup';
 var descAndBar = document.getElementById('descAndBar');
+var inputField = document.getElementById('inputField');
 var progressBar;
 var intervalId;
 var deltaT;
@@ -9,12 +10,12 @@ var maxT;
 
 
 function startTimer(){
-	var inputField = document.getElementsByTagName('input')[0];
 	if (currentPhase == 'setup') {
-		if (inputField.value=='0h'){
-			descAndBar.innerHTML = "<h3>'0h' is nonsensical input</h3>";
-			return;
-		} else if (inputField.value.match(/\dh/)) {
+		if (inputField.value.match(/\dh/)) {
+			if (inputField.value=='0h'){
+				descAndBar.innerHTML = "<h3>'0h' is nonsensical input</h3>";
+				return;
+			}
 			deltaT = inputField.value.substr(0,1) * 60 * 60;
 		} else if (isNaN(inputField.value) || inputField.value <= 0){
 			descAndBar.innerHTML = '<h3>Input must be positive number above zero</h3>';
@@ -24,7 +25,6 @@ function startTimer(){
 		}
 		maxT = deltaT;
 		switchPhase();
-		progressBar = document.getElementById('progressBar');
 		intervalId = setInterval(tick, 1000);
 	} else {
 		//cancel countdown
@@ -41,16 +41,15 @@ function startTimer(){
 function tick(){
 	deltaT--;
 	progressBar.style.width = deltaT / maxT * 100 + '%';
-	var v = document.getElementsByTagName('input')[0];
 	if(deltaT==0) {
 		window.clearInterval(intervalId);
 		shutdown();
 	} else if (deltaT<60) {
-		v.value = deltaT;
+		inputField.value = deltaT;
 	} else if (deltaT<3540) {
-		v.value = Math.round(deltaT/60);
+		inputField.value = Math.round(deltaT/60);
 	} else {
-		v.value = Math.round(deltaT/60/60) + 'h';
+		inputField.value = Math.round(deltaT/60/60) + 'h';
 	}
 }
 
@@ -81,6 +80,7 @@ function switchToArmed() {
 	document.getElementsByTagName('input')[0].readOnly = true;
 	descAndBar.style.border = '1px solid #616568';
 	descAndBar.innerHTML = '<div id="progressBar"></div>'
+	progressBar = document.getElementById('progressBar');
 	currentPhase = 'armed';
 }
 
